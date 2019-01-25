@@ -52,7 +52,7 @@ router.put('/', async function (req, res, next) {
             createdBoreholeIds.push(borehole.id);
         } catch (err) {
             logger.error(`failed to save borehole: ${JSON.stringify(borehole)}`);
-            failedCreationBoreholes.push({id: borehole.id, err: err.message});
+            failedCreationBoreholes.push({id: borehole.id, err: {msg: err.message}});
 
         }
 
