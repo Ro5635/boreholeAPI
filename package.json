@@ -1,14 +1,16 @@
 {
-  "name": "samtest",
+  "name": "borehole_api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "aws-sdk": "^2.393.0",
     "aws-serverless-express": "^3.3.5",
     "bunyan": "^1.8.12",
     "dynamodb-doc": "^1.0.0",
     "express": "^4.16.4",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "sanitize-html": "^1.20.0"
   },
   "devDependencies": {},
   "scripts": {

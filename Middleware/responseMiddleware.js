@@ -25,7 +25,7 @@ function sendResponseFactory(res) {
             return res.status(statusCode).send(payload);
         }
 
-        return res.status(statusCode).send(payload);
+        return res.status(statusCode).send();
     }
 }
 

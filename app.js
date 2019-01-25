@@ -8,6 +8,7 @@ const responseMiddleware =  require('./Middleware/responseMiddleware');
 
 // Setup Routers
 const index = require('./Routers/index');
+const boreholesRouter = require('./Routers/boreholesRouter');
 
 const app = express();
 
@@ -29,7 +30,7 @@ app.use(function (req, res, next) {
 
 // Routers
 app.use('/', index);
-
+app.use('/boreholes/', boreholesRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
