@@ -10,6 +10,11 @@ jobs:
 
     steps:
     - checkout
+
+    # set environment variables
+    command: |
+      echo 'export NODE_ENV="test"' >> $BASH_ENV
+
     - run: docker-compose up -d
     - run: npm install
     - run: npm test

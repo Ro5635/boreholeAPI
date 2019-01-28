@@ -8,8 +8,7 @@ const aws = require("aws-sdk");
 const doc = require("dynamodb-doc");
 const config = require('../config');
 
-// EXCLUDED AS TEST FOR CIRCLE CI
-// aws.config.update(config.AWS_API_CONFIG);
+aws.config.update(config.AWS_API_CONFIG);
 
 const docClient = new doc.DynamoDB();
 
