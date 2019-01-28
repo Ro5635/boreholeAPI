@@ -1,0 +1,20 @@
+# CircleCI 2.0 configuration file
+#
+#
+#
+version: 2
+jobs:
+  build:
+    build:
+      machine: true # Use a Linux VM
+      working_directory: ~/repo # Default working directory, where project will be cloned
+
+    steps:
+    - checkout
+    - run: docker-compose up -d
+    - run: npm install
+    - run: npm test
+
+    - save_cache:
+        paths:
+        - node_modules
