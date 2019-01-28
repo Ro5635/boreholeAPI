@@ -45,6 +45,10 @@ exports.saveNew = async function (borehole) {
                 logger.error('passed borehole id exists within table');
                 return reject(new Error('Failed to save borehole, id exists'));
 
+            } else if (err.name === 'ValidationException') {
+                logger.error('passed borehole fails validation');
+                return reject(new Error('Failed to save borehole, borehole is invalid'));
+
             }
 
             logger.error(err);

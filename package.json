@@ -20,7 +20,7 @@
     "nyc": "^13.1.0"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "nyc --reporter=text mocha"
   },
   "author": "",
   "license": "ISC"

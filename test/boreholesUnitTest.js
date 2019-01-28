@@ -1,3 +1,10 @@
+/**
+ * Tests For Boreholes Resource
+ *
+ * Tests from calling the router
+ *
+ */
+
 //During the test the env variable is set to test
 process.env.NODE_ENV = 'test';
 
@@ -35,6 +42,74 @@ describe('Boreholes. Test Creation, Get and Delete of a Borehole', () => {
                     res.body.should.be.a('Object');
                     res.body.should.have.property('createdBoreholes').eql([testID]);
                     res.body.should.have.property('failedCreationBoreholes').eql([]);
+                    done();
+                });
+        });
+
+        it('it should fail to put a duplicate borehole ID', (done) => {
+            chai.request(app)
+                .put('/boreholes/')
+                .send({"Boreholes": [{"id": testID, "depth": 22}]})
+                .end((err, res) => {
+
+                    const expectedResponse = [{
+                        "id": testID,
+                        "err": {
+                            "msg": "Failed to save borehole, id exists"
+                        }
+                    }];
+
+                    res.should.have.status(202);
+                    res.body.should.be.a('Object');
+                    res.body.should.have.property('createdBoreholes').eql([]);
+                    res.body.should.have.property('failedCreationBoreholes').eql(expectedResponse);
+                    done();
+                });
+        });
+
+        it('it should fail to put an empty borehole', (done) => {
+            chai.request(app)
+                .put('/boreholes/')
+                .send({"Boreholes": []})
+                .end((err, res) => {
+
+                    const expectedResponse = {
+                        "msg": "Malformed Request"
+                    };
+
+                    res.should.have.status(400);
+                    res.body.should.be.a('Object');
+                    res.body.should.eql(expectedResponse);
+                    done();
+                });
+        });
+
+        // This exposes a hole in the API design, without ID cannot specify which borehole failed...
+        it('it should fail to put Borehole without ID', (done) => {
+            chai.request(app)
+                .put('/boreholes/')
+                .send({"Boreholes": [{"depth": 22}, {name: 'This shows a shortcoming in this API design'}]})
+                .end((err, res) => {
+
+                    const expectedResponse = {
+                        "createdBoreholes": [],
+                        "failedCreationBoreholes": [
+                            {
+                                "err": {
+                                    "msg": "Failed to save borehole, borehole is invalid"
+                                }
+                            },
+                            {
+                                "err": {
+                                    "msg": "Failed to save borehole, borehole is invalid"
+                                }
+                            }
+                        ]
+                    };
+
+                    res.should.have.status(202);
+                    res.body.should.be.a('Object');
+                    res.body.should.eql(expectedResponse);
                     done();
                 });
         });
@@ -95,13 +170,41 @@ describe('Boreholes. Test Creation, Get and Delete of a Borehole', () => {
             chai.request(app)
                 .get(`/boreholes/${testID}`)
                 .end((err, res) => {
-                    let expectedResponse = {
+                    const expectedResponse = {
                         "msg": "No borehole found with supplied ID"
                     };
 
                     res.should.have.status(400);
                     res.body.should.be.a('Object');
                     res.body.should.eql(expectedResponse);
+                    done();
+                });
+        });
+
+        it('it should fail to DELETE a non existent borehole', (done) => {
+            chai.request(app)
+                .delete(`/boreholes/${testID}`)
+                .end((err, res) => {
+                    const exectedResponse = {
+                        "msg": "Cannot delete, Borehole does not exist"
+                    };
+
+                    res.should.have.status(400);
+                    res.body.should.eql(exectedResponse);
+                    done();
+                });
+        });
+
+        it('it should fail to DELETE without a provided ID', (done) => {
+            chai.request(app)
+                .delete(`/boreholes/`)
+                .end((err, res) => {
+                    const exectedResponse = {
+                        "msg": "Malformed Request"
+                    };
+
+                    res.should.have.status(400);
+                    res.body.should.eql(exectedResponse);
                     done();
                 });
         });
