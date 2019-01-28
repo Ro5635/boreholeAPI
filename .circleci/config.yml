@@ -5,9 +5,8 @@
 version: 2
 jobs:
   build:
-    build:
-      machine: true # Use a Linux VM
-      working_directory: ~/repo # Default working directory, where project will be cloned
+    machine: true # Use a Linux VM
+    working_directory: ~/repo # Default working directory, where project will be cloned
 
     steps:
     - checkout
