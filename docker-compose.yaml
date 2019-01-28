@@ -18,6 +18,7 @@ services:
     restart: always
     ports:
     - "8000:8000"
+
   dynamoDB-configurator:
     image: ro5635/awscli
     volumes:
@@ -29,3 +30,15 @@ services:
       - AWS_DEFAULT_REGION=local
     depends_on:
       - dynamodb-local
+
+#  test-runner:
+#    image: node:8-slim
+#    user: "node"
+#    working_dir: /home/node/app
+#    environment:
+#     - NODE_ENV=test
+#    volumes:
+#      - ./:/home/node/app
+#    command: "npm install"
+#    depends_on:
+#    - dynamoDB-configurator

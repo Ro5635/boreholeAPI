@@ -16,7 +16,7 @@ jobs:
         command: |
           echo 'export NODE_ENV="test"' >> $BASH_ENV
 
-    - run: docker-compose up
+    - run: docker-compose up -d
     - run: npm install
     - run: npm test
 
@@ -24,3 +24,27 @@ jobs:
 #        key: v1-myapp-{{ arch }}-{{ checksum "project.clj" }}
 #        paths:
 #        - node_modules
+
+
+
+
+#jobs:
+#  build:
+#    docker:
+#    # Primary container image where all steps run.
+#    - image: node:8-slim
+#    # Secondary container image on common network.
+#    - image: amazon/dynamodb-local
+#      entrypoint: java
+#      command: "-jar DynamoDBLocal.jar -sharedDb"
+#    # DynamoDB-configurator
+#
+#
+#
+#
+#    working_directory: ~/
+#
+#    steps:
+#    # command will execute in trusty container
+#    # and can access mongo on localhost
+#    - run: sleep 5 && nc -vz localhost 27017
