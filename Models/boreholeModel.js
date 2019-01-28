@@ -6,12 +6,13 @@
 const logger = require('../Helpers/LogHelper').getLogger(__filename);
 const aws = require("aws-sdk");
 const doc = require("dynamodb-doc");
+const config = require('../config');
 
-aws.config.update({region: "local", endpoint: 'http://localhost:8000'});
+aws.config.update(config.AWS_API_CONFIG);
 
 const docClient = new doc.DynamoDB();
-// const tableName = process.env.TABLE_NAME;
-const tableName = 'boreholesTable';
+
+const tableName = config.BOREHOLES_TABLE_NAME;
 
 
 /**
