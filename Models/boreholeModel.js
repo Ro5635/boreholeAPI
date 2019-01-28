@@ -10,16 +10,25 @@ const doc = require("dynamodb-doc");
 aws.config.update({region: "local", endpoint: 'http://localhost:8000'});
 
 const docClient = new doc.DynamoDB();
-const tableName = process.env.TABLE_NAME;
+// const tableName = process.env.TABLE_NAME;
+const tableName = 'boreholesTable';
 
 
+/**
+ * Save new Borehole
+ *
+ * Persists a new Borehole, supply a borehole object.
+ *
+ * @param borehole                  Borehole Object
+ * @return {Promise<*>}
+ */
 exports.saveNew = async function (borehole) {
     return new Promise(async function (resolve, reject) {
         logger.debug('BoreholesModel saveNew called');
 
         const params = {
-            "TableName": tableName,
-            "Item": borehole,
+            TableName: tableName,
+            Item: borehole,
             ConditionExpression: "attribute_not_exists(id)"
         };
 
@@ -50,7 +59,101 @@ exports.saveNew = async function (borehole) {
 
 };
 
+/**
+ * Delete Borehole
+ *
+ * Remove Borehole from the data store, Borehole identified by ID
+ *
+ * @param               boreholeID  String Borehole ID
+ * @return {Promise<*>}
+ */
+exports.deleteBorehole = async function (boreholeID) {
+    return new Promise(async function (resolve, reject) {
+        logger.debug('BoreholesModel delete called');
 
+        // Basic Validation
+        if (!boreholeID) {
+            logger.error('Invalid ID passed to delete borehole');
+            logger.error(`Provided invalid ID: ${boreholeID}`);
+            return reject(new Error('Invalid Borehole ID'));
+        }
+
+
+        const params = {
+            Key: {'id': boreholeID},
+            TableName: tableName,
+            ConditionExpression: "attribute_exists(id)"
+        };
+
+        try {
+            logger.debug(`Deleting Borehole with ID: ${boreholeID}`);
+            await docClient.deleteItem(params).promise()
+
+        } catch (err) {
+            logger.error('Failed to delete borehole');
+            logger.error(err);
+
+            if (err.name === 'ConditionalCheckFailedException') {
+                logger.error("Borehole ID for does not exist, cannot delete non-existent borehole.");
+                return reject(new Error('Failed to delete borehole, borehole does not exist'));
+
+            }
+
+            return reject(new Error('Failed to delete borehole'));
+
+        }
+
+        return resolve();
+
+    });
+};
+
+/**
+ * Get Borehole
+ *
+ * Get a single borehole by ID
+ *
+ * @param       boreholeID      String Borehole ID
+ * @return {Promise<*>}
+ */
+exports.getBorehole = async function (boreholeID) {
+    return new Promise(async function (resolve, reject) {
+        logger.debug('Get Single borehole called on boreholesModel');
+
+        //basic Validation
+        if (!boreholeID) {
+            logger.error('Invalid ID passed to get borehole');
+            logger.error(`Provided invalid ID: ${boreholeID}`);
+            return reject(new Error('Invalid Borehole ID'));
+        }
+
+        const params = {
+            Key: {'id': boreholeID},
+            TableName: tableName
+        };
+
+        try {
+            logger.debug('Getting borehole from db');
+            const boreholeRequestResponse = await docClient.getItem(params).promise();
+            const borehole = boreholeRequestResponse.Item;
+
+            if (!borehole) {
+                logger.error('No borehole found with supplied ID');
+                return reject(new Error('No borehole found with supplied ID'));
+
+            }
+
+            logger.debug('Successfully got borehole from database');
+            return resolve(borehole);
+
+        } catch (err) {
+            logger.error(`Failed to get borehole from database with id: ${boreholeID}`);
+            return reject(new Error('Failed to get borehole'));
+
+        }
+
+    });
+};
 
 
 module.exports = exports;

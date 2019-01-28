@@ -4,7 +4,7 @@ const morganLogger = require('morgan');
 const bodyParser = require('body-parser');
 
 const logger = require('./Helpers/LogHelper').getLogger(__filename);
-const responseMiddleware =  require('./Middleware/responseMiddleware');
+const responseMiddleware = require('./Middleware/responseMiddleware');
 
 // Setup Routers
 const index = require('./Routers/index');
@@ -14,10 +14,10 @@ const app = express();
 
 
 // Middleware
+app.use(responseMiddleware.addSendResponseToRes);
 app.use(morganLogger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(responseMiddleware.addSendResponseToRes);
 
 app.use(function (req, res, next) {
     "use strict";
@@ -42,14 +42,19 @@ app.use(function (req, res, next) {
 // error handler
 app.use(function (err, req, res, next) {
     logger.error('Hit final error handler');
+    logger.error(err);
 
-    // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
+    if (err) {
+        if (err.status < 500) {
+            return res.sendResponse(err.status, {msg: err.message});
+        }
 
-    // render the error page
-    res.status(err.status || 500);
-    res.status(404).send({Error: 'Endpoint not found'});
+        return res.sendResponse(500, {msg: 'Unexpected error'});
+    }
+
+    // Otherwise send a 404
+    return res.sendResponse(404, {msg: 'Endpoint not found'});
+
 });
 
 module.exports = app;

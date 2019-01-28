@@ -16,6 +16,13 @@ const logger = require('../Helpers/LogHelper').getLogger(__filename);
 function sendResponseFactory(res) {
 
     return (statusCode, payload) => {
+        // Basic Validation
+        if(!statusCode) {
+            logger.error('No statusCode provided to sendResponse');
+            logger.error(`Was provided with Status: ${statusCode} and Payload: ${payload}`);
+            return res.sendResponse(500);
+        }
+
         logger.debug('Sending HTTP response');
         logger.debug(`StatusCode: ${statusCode}`);
 

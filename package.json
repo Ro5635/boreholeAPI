@@ -7,14 +7,20 @@
     "aws-sdk": "^2.393.0",
     "aws-serverless-express": "^3.3.5",
     "bunyan": "^1.8.12",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
+    "config": "^3.0.1",
     "dynamodb-doc": "^1.0.0",
     "express": "^4.16.4",
     "morgan": "^1.9.1",
     "sanitize-html": "^1.20.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "mocha": "^5.2.0",
+    "nyc": "^13.1.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "",
   "license": "ISC"
