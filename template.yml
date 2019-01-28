@@ -28,8 +28,8 @@ Resources:
       Timeout: 3
       Environment:
         Variables:
-          TABLE_NAME: boreholesTable #!Ref MyTable
-          NODE_ENV: dev
+          BOREHOLE_TABLE_NAME: !Ref MyTable
+          NODE_ENV: prod
 
       Policies:
 
