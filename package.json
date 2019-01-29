@@ -20,7 +20,9 @@
     "nyc": "^13.1.0"
   },
   "scripts": {
-    "test": "nyc ./node_modules/.bin/mocha --recursive --timeout=10000 --exit --reporter mocha-junit-reporter --reporter-options mochaFile=reportsMount/reports/mocha/test-results.xml"
+    "test": "nyc ./node_modules/.bin/mocha --recursive --timeout=10000 --exit --reporter mocha-junit-reporter --reporter-options mochaFile=reportsMount/reports/mocha/test-results.xml",
+    "start-environment": "docker-compose --project-name boreholeapi up  -d",
+    "start-sam-local": "sam local start-api --docker-network boreholeapi_borehole_local_network"
   },
   "author": "",
   "license": "ISC"

@@ -2,9 +2,19 @@
 
 API to support the borehole Angular UI, allows the creation deletion and aquisition of boreholes based on thier ID's, the ID is user provided.
 
+## Starting Dev Environment
+
+To develop locally the dynamoDB container will need to be started and configured, this is achieved by using the docker-compose script, however there are some additional parameters that need to be fed, so use the following command:
+
+`npm run-script start-environment`
+
+Then ensure that in template.yml the environment variable NODE_ENV is set to devSAMLocal and then run `start-sam-local` to start the local API.
+
+Or alternatively after starting the environment you can run bin\devRunner.js with Node, ensuring that the environment variable NODE_ENV is set to `dev`
+
 ## API Docs
 
-API docs are maintained within the postman eco-system, this is avalible at: [postman docs](https://documenter.getpostman.com/view/1268576/RztiuqCc)
+API docs are maintained within the postman eco-system, this is available at: [postman docs](https://documenter.getpostman.com/view/1268576/RztiuqCc)
 
 ## API Deployment
 

@@ -18,24 +18,33 @@ services:
     restart: always
     ports:
     - "8000:8000"
+    networks:
+    - borehole_local_network
 
   dynamoDB-configurator:
     image: ro5635/awscli
     volumes:
     - ./localDynamoDBConfig.sh:/hostScript/script.sh
     environment:
-      # Set some empty credentials, they need to exist but not validated for local use
-      - AWS_ACCESS_KEY_ID=EXAMPLEID_EXAMPLEID
-      - AWS_SECRET_ACCESS_KEY=EXAMPLEKEY/EXAMPLEKEY/EXAMPLEKEY
-      - AWS_DEFAULT_REGION=local
+    # Set some empty credentials, they need to exist but not validated for local use
+    - AWS_ACCESS_KEY_ID=EXAMPLEID_EXAMPLEID
+    - AWS_SECRET_ACCESS_KEY=EXAMPLEKEY/EXAMPLEKEY/EXAMPLEKEY
+    - AWS_DEFAULT_REGION=local
+    networks:
+    - borehole_local_network
     depends_on:
-      - dynamodb-local
+    - dynamodb-local
 
   test-runner:
     build: .
     command: tail -F package.json
     container_name: test_runner
     volumes:
-      - ./:/home/node/app/reportsMount
+    - ./:/home/node/app/reportsMount
+    networks:
+    - borehole_local_network
     depends_on:
     - dynamoDB-configurator
+
+networks:
+  borehole_local_network:

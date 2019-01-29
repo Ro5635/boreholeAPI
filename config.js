@@ -17,6 +17,13 @@ const dev = {
 
 };
 
+const devSAMLocal = {
+    BOREHOLES_TABLE_NAME: "boreholesTable",
+    AWS_API_CONFIG: {region: "local", endpoint: 'http://dynamodb-local:8000'}
+
+};
+
+
 const test = {
     BOREHOLES_TABLE_NAME: "boreholesTable",
     AWS_API_CONFIG: {region: "local", endpoint: 'http://dynamodb-local:8000'}
@@ -29,6 +36,7 @@ const prod = {
 
 const config = {
     dev,
+    devSAMLocal,
     test,
     prod
 };

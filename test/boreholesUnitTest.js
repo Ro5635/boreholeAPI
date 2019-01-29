@@ -59,6 +59,7 @@ describe('Boreholes. Test Creation, Get and Delete of a Borehole', () => {
                     res.should.have.status(202);
                     res.body.should.be.a('Object');
                     res.body.should.have.property('createdBoreholes').eql([]);
+                    res.body.should.have.property('statusCode').eql(202);
                     res.body.should.have.property('failedCreationBoreholes').eql(expectedResponse);
                     done();
                 });
@@ -71,7 +72,8 @@ describe('Boreholes. Test Creation, Get and Delete of a Borehole', () => {
                 .end((err, res) => {
 
                     const expectedResponse = {
-                        "msg": "Malformed Request"
+                        "msg": "Malformed Request",
+                        "statusCode": 400
                     };
 
                     res.should.have.status(400);
@@ -101,7 +103,8 @@ describe('Boreholes. Test Creation, Get and Delete of a Borehole', () => {
                                     "msg": "Failed to save borehole, borehole is invalid"
                                 }
                             }
-                        ]
+                        ],
+                        "statusCode": 202
                     };
 
                     res.should.have.status(202);
@@ -123,12 +126,13 @@ describe('Boreholes. Test Creation, Get and Delete of a Borehole', () => {
                 .end((err, res) => {
                     let expectedResponse = {
                         "id": testID,
-                        "depth": "22"
+                        "depth": "22",
                     };
 
                     res.should.have.status(200);
                     res.body.should.be.a('Object');
                     res.body.should.have.property(testID).eql(expectedResponse);
+                    res.body.should.have.property("statusCode").eql(200);
                     done();
                 });
         });
@@ -138,7 +142,8 @@ describe('Boreholes. Test Creation, Get and Delete of a Borehole', () => {
                 .get(`/boreholes/AppleCakeIsTheBestThing`)
                 .end((err, res) => {
                     let expectedResponse = {
-                        "msg": "No borehole found with supplied ID"
+                        "msg": "No borehole found with supplied ID",
+                        "statusCode": 400
                     };
 
                     res.should.have.status(400);
@@ -168,7 +173,8 @@ describe('Boreholes. Test Creation, Get and Delete of a Borehole', () => {
                 .get(`/boreholes/${testID}`)
                 .end((err, res) => {
                     const expectedResponse = {
-                        "msg": "No borehole found with supplied ID"
+                        "msg": "No borehole found with supplied ID",
+                        "statusCode": 400
                     };
 
                     res.should.have.status(400);
@@ -183,7 +189,8 @@ describe('Boreholes. Test Creation, Get and Delete of a Borehole', () => {
                 .delete(`/boreholes/${testID}`)
                 .end((err, res) => {
                     const exectedResponse = {
-                        "msg": "Cannot delete, Borehole does not exist"
+                        "msg": "Cannot delete, Borehole does not exist",
+                        "statusCode": 400
                     };
 
                     res.should.have.status(400);
@@ -197,7 +204,8 @@ describe('Boreholes. Test Creation, Get and Delete of a Borehole', () => {
                 .delete(`/boreholes/`)
                 .end((err, res) => {
                     const exectedResponse = {
-                        "msg": "Malformed Request"
+                        "msg": "Malformed Request",
+                        "statusCode": 400
                     };
 
                     res.should.have.status(400);

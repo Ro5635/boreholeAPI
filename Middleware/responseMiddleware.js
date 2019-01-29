@@ -29,10 +29,13 @@ function sendResponseFactory(res) {
 
         if (payload) {
             logger.debug(`Payload: ${JSON.stringify(payload)}`);
+            if(!payload.statusCode) {
+                payload.statusCode = statusCode;
+            }
             return res.status(statusCode).send(payload);
         }
 
-        return res.status(statusCode).send();
+        return res.status(statusCode).send({"statusCode": statusCode});
     }
 }
 
