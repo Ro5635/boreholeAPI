@@ -1,6 +1,7 @@
 # CircleCI 2.0 configuration file
 #
-#
+# At the base of this file is the template for building this off a circle CI Docker base
+# this is left for later attempts to switch from a bare VM that this uses.
 #
 version: 2
 jobs:
@@ -17,6 +18,8 @@ jobs:
           echo 'export NODE_ENV="test"' >> $BASH_ENV
 
     - run: docker-compose up -d
+    # Run the tests on the test runner container that is in he docker-compose environment and has network
+    # access to the required resources
     - run: docker exec -it test_runner npm test
 
 #    - save_cache:
