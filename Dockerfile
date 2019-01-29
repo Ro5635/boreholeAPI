@@ -10,9 +10,10 @@ ENV NODE_ENV test
 RUN rm -rf ./node_modules && npm install
 
 
-FROM node
+FROM node:8-slim
 #USER "node"
 WORKDIR /home/node/app
 COPY --from=intermediate /home/node/app .
+ENV NODE_ENV test
 CMD npm test
 #CMD ["npm test"]
