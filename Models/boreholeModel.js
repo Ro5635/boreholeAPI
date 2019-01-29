@@ -3,7 +3,7 @@
  *
  *
  */
-const logger = require('../Helpers/LogHelper').getLogger(__filename);
+const logger = require('../Helpers/logHelper').getLogger(__filename);
 const aws = require("aws-sdk");
 const doc = require("dynamodb-doc");
 const config = require('../config');
