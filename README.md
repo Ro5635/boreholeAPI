@@ -1,4 +1,5 @@
 # boreholeAPI
+[![CircleCI](https://circleci.com/gh/Ro5635/boreholeAPI/tree/master.svg?style=svg)](https://circleci.com/gh/Ro5635/boreholeAPI/tree/master)
 
 API to support the borehole Angular UI, allows the creation deletion and aquisition of boreholes based on thier ID's, the ID is user provided.
 
