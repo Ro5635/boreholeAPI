@@ -19,7 +19,7 @@ const dev = {
 
 const test = {
     BOREHOLES_TABLE_NAME: "boreholesTable",
-    AWS_API_CONFIG: {region: "local", endpoint: 'http://localhost:8000'}
+    AWS_API_CONFIG: {region: "local", endpoint: 'http://dynamodb-local:8000'}
 
 };
 

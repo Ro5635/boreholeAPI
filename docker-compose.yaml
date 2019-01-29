@@ -18,6 +18,7 @@ services:
     restart: always
     ports:
     - "8000:8000"
+
   dynamoDB-configurator:
     image: ro5635/awscli
     volumes:
@@ -29,3 +30,10 @@ services:
       - AWS_DEFAULT_REGION=local
     depends_on:
       - dynamodb-local
+
+  test-runner:
+    build: .
+    command: tail -F package.json
+    container_name: test_runner
+    depends_on:
+    - dynamoDB-configurator
