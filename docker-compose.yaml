@@ -35,5 +35,7 @@ services:
     build: .
     command: tail -F package.json
     container_name: test_runner
+    volumes:
+      - ./:/home/node/app/reportsMount
     depends_on:
     - dynamoDB-configurator

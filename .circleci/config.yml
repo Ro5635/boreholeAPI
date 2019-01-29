@@ -22,6 +22,10 @@ jobs:
     # access to the required resources
     - run: docker exec -it test_runner npm test
 
+    - store_test_results:
+         path: reports
+
+
 #    - save_cache:
 #        key: v1-myapp-{{ arch }}-{{ checksum "project.clj" }}
 #        paths:

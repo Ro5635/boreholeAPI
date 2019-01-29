@@ -6,6 +6,15 @@ const bodyParser = require('body-parser');
 const logger = require('./Helpers/logHelper').getLogger(__filename);
 const responseMiddleware = require('./Middleware/responseMiddleware');
 
+// Confirm presence of the NODE_ENV environment var
+if (!process.env.NODE_ENV){
+    logger.error('NODE_ENV Environment variable not present');
+    logger.error('NODE_ENV is required, Aborting');
+    process.exit(1);
+    
+}
+
+
 // Setup Routers
 const index = require('./Routers/index');
 const boreholesRouter = require('./Routers/boreholesRouter');
