@@ -48,4 +48,4 @@ Resources:
           Properties:
             Path: /
             Method: any
-      ReservedConcurrentExecutions: 5
+      ReservedConcurrentExecutions: 3

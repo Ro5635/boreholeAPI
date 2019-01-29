@@ -8,9 +8,13 @@ API docs are maintained within the postman eco-system, this is avalible at: [pos
 
 ## API Deployment
 
-This project uses AWS SAM for deployment managment, {...} 
+This project uses AWS SAM for deployment management, {...}
 
 ## Test
 
-Uses Mocha and Chai for testing along with NYC for code coverage, run `npm test` to run tests. This depends on the local DynamoDB environment being avalible, this is achived by calling `docker-compose up -d`
+Uses Mocha and Chai for testing along with NYC for code coverage, run `npm test` to run tests. This depends on the local DynamoDB environment being available, this is achieved by calling `docker-compose up -d`
+
+To then run the tests use `docker exec -it test_runner npm test`
+
+Alternatively all commits to this repository trigger CircleCI to build and execute all tests, these are available on [cireclCI](https://circleci.com/gh/Ro5635/boreholeAPI)
 
