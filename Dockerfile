@@ -15,5 +15,8 @@ FROM node:8-slim
 WORKDIR /home/node/app
 COPY --from=intermediate /home/node/app .
 ENV NODE_ENV test
+ENV AWS_ACCESS_KEY_ID EXAMPLEID_EXAMPLEID
+ENV AWS_SECRET_ACCESS_KEY EXAMPLEKEY/EXAMPLEKEY/EXAMPLEKEY
+ENV AWS_DEFAULT_REGION local
 CMD npm test
 #CMD ["npm test"]
