@@ -92,7 +92,7 @@ exports.deleteBorehole = async function (boreholeID) {
 
         try {
             logger.debug(`Deleting Borehole with ID: ${boreholeID}`);
-            // await docClient.deleteItem(params).promise()
+            await docClient.deleteItem(params).promise()
 
         } catch (err) {
             logger.error('Failed to delete borehole');
