@@ -31,14 +31,9 @@ services:
     depends_on:
       - dynamodb-local
 
-#  test-runner:
-#    image: node:8-slim
-#    user: "node"
-#    working_dir: /home/node/app
-#    environment:
-#     - NODE_ENV=test
-#    volumes:
-#      - ./:/home/node/app
-#    command: "npm install"
-#    depends_on:
-#    - dynamoDB-configurator
+  test-runner:
+    build: .
+    command: tail -F package.json
+    container_name: test_runner
+    depends_on:
+    - dynamoDB-configurator
