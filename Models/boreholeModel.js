@@ -153,6 +153,8 @@ exports.getBorehole = async function (boreholeID) {
 
         } catch (err) {
             logger.error(`Failed to get borehole from database with id: ${boreholeID}`);
+            logger.error(err);
+
             return reject(new Error('Failed to get borehole'));
 
         }

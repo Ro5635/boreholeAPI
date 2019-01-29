@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 
+'use strict'
 const app = require('../app');
 const debug = require('debug');
 const http = require('http');

@@ -46,6 +46,7 @@ router.get('/:boreholeID', async function (req, res, next) {
 
     } catch (err) {
         logger.error('Error in retrieving borehole by ID');
+        logger.error(err);
 
         if (err.message === 'No borehole found with supplied ID') {
             logger.error('User supplied ID could not be matched to an existing borehole');

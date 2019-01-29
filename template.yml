@@ -25,11 +25,12 @@ Resources:
       Handler: bin/lambdaRunner.handler
       Runtime: nodejs8.10
       CodeUri: ./
-      Timeout: 3
+      Timeout: 50
       Environment:
         Variables:
           BOREHOLE_TABLE_NAME: !Ref MyTable
           NODE_ENV: prod
+#          NODE_ENV: devSAMLocal
 
       Policies:
 
