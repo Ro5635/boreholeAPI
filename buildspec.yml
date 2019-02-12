@@ -28,6 +28,9 @@ phases:
     commands:
     # Use AWS SAM to package the application using AWS CloudFormation
     - aws cloudformation package --template template.yml --s3-bucket boreholeapi-sam-deployment --output-template template-export.yml
+  deploy:
+    # Call the deployment (From inside CodeBuild...)
+    - aws cloudformation deploy --template-file template-export.yml --stack-name boreholeapistack
 artifacts:
   type: zip
   files:
