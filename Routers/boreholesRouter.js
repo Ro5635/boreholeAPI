@@ -59,6 +59,7 @@ router.get('/:boreholeID', async function (req, res, next) {
     }
 });
 
+
 router.put('/', async function (req, res, next) {
     logger.debug('PUT request to boreholes router received');
 

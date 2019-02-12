@@ -162,5 +162,79 @@ exports.getBorehole = async function (boreholeID) {
     });
 };
 
+// /** NOT IMPLEMENTED
+//  * Search For Boreholes
+//  *
+//  * Search for a borehole by ID
+//  * !This is an expensive DynamoDB operation!
+//  *
+//  * @param       boreholeID      String Borehole ID for search
+//  * @return {Promise<*>}
+//  */
+// exports.searchForBoreholes = async function (boreholeSearchID) {
+//     return new Promise(async function (resolve, reject) {
+//         logger.debug('Search for borehole called on boreholesModel');
+//
+//         //basic Validation
+//         if (!boreholeSearchID) {
+//             logger.error('Invalid ID passed to get borehole');
+//             logger.error(`Provided invalid ID: ${boreholeSearchID}`);
+//             return reject(new Error('Invalid Borehole ID'));
+//         }
+//
+//         const params = {
+//             Key: {'id': boreholeSearchID},
+//             TableName: tableName
+//         };
+//
+//         try {
+//             logger.debug('Searching for boreholes in db');
+//
+//             var params = {
+//                 ExpressionAttributeValues: {
+//                     ':s': {N: '2'},
+//                     ':e' : {N: '09'},
+//                     ':topic' : {S: 'PHRASE'}
+//                 },
+//                 KeyConditionExpression: 'Season = :s and Episode > :e',
+//                 FilterExpression: 'contains (Subtitle, :topic)',
+//                 TableName: 'EPISODES_TABLE'
+//             };
+//
+//             ddb.query(params, function(err, data) {
+//                 if (err) {
+//                     console.log("Error", err);
+//                 } else {
+//                     //console.log("Success", data.Items);
+//                     data.Items.forEach(function(element, index, array) {
+//                         console.log(element.Title.S + " (" + element.Subtitle.S + ")");
+//                     });
+//                 }
+//             });
+//
+//
+//
+//             const boreholeRequestResponse = await docClient.getItem(params).promise();
+//             const borehole = boreholeRequestResponse.Item;
+//
+//             if (!borehole) {
+//                 logger.error('No boreholes found with for supplied search ID');
+//                 return reject(new Error('No boreholeSearchID found in search supplied ID'));
+//
+//             }
+//
+//             logger.debug('Successfully got boreholes from database');
+//             return resolve(borehole);
+//
+//         } catch (err) {
+//             logger.error(`Failed to get borehole from database with id: ${boreholeSearchID}`);
+//             logger.error(err);
+//
+//             return reject(new Error('Failed to get borehole'));
+//
+//         }
+//
+//     });
+// };
 
 module.exports = exports;

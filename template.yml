@@ -12,11 +12,11 @@ Resources:
     Type: AWS::Serverless::SimpleTable
     Properties:
       PrimaryKey:
-         Name: id
-         Type: String
+        Name: id
+        Type: String
       ProvisionedThroughput:
-         ReadCapacityUnits: 2
-         WriteCapacityUnits: 2
+        ReadCapacityUnits: 2
+        WriteCapacityUnits: 2
 
   BoreholeTrackerAPI:
     Type: AWS::Serverless::Function
@@ -30,7 +30,7 @@ Resources:
         Variables:
           BOREHOLE_TABLE_NAME: !Ref MyTable
           NODE_ENV: prod
-#          NODE_ENV: devSAMLocal
+      #          NODE_ENV: devSAMLocal
 
       Policies:
 
