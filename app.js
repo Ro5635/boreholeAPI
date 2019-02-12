@@ -34,6 +34,8 @@ app.use(function (req, res, next) {
     res.setHeader('content-type', 'application/json');
     // TODO: Create list of allowed origins
     res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'content-type, auth');
     next();
 });
 

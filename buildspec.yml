@@ -1,0 +1,38 @@
+version: 0.2
+
+#env:
+#  variables:
+#    NODE_ENV: "value"
+#    key: "value"
+phases:
+  install:
+    commands:
+    # Install dependencies needed for running tests
+    - npm --version
+    - npm install
+
+    # Prevent files from having a timestamp before 1980
+    - find ./node_modules -mtime +10950 -exec touch {} \;
+
+
+    # Upgrade AWS CLI to the latest version
+    - pip3 install --upgrade pip
+    - pip3 install --upgrade awscli
+  pre_build:
+    commands:
+    # Run Unit Tests
+    # Commented out, the unit tests are currently ran in circleCI due tothe need to use multiple docker containers to facilitate the tests
+    # It is easier to do this their...
+#    - npm test
+  build:
+    commands:
+    # Use AWS SAM to package the application using AWS CloudFormation
+    - aws cloudformation package --template template.yml --s3-bucket boreholeapi-sam-deployment --output-template template-export.yml
+  post_build:
+    commands:
+    # Call the deployment (From inside CodeBuild...)
+    - aws cloudformation deploy --template-file template-export.yml --stack-name boreholeapistack
+artifacts:
+  type: zip
+  files:
+  - template-export.yml
