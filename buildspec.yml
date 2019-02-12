@@ -1,5 +1,9 @@
 version: 0.2
 
+#env:
+#  variables:
+#    NODE_ENV: "value"
+#    key: "value"
 phases:
   install:
     commands:
@@ -16,8 +20,10 @@ phases:
     - pip3 install --upgrade awscli
   pre_build:
     commands:
-    # Discover and run unit tests in the 'tests' directory
-    - npm test
+    # Run Unit Tests
+    # Commented out, the unit tests are currently ran in circleCI due tothe need to use multiple docker containers to facilitate the tests
+    # It is easier to do this their...
+#    - npm test
   build:
     commands:
     # Use AWS SAM to package the application using AWS CloudFormation
