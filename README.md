@@ -10,9 +10,14 @@ API to support the borehole Angular UI, allows the creation deletion and aquisit
 - [x] CircleCI Run full code coverage reporting
 - [x] CircleCI automaticaly run and tag commits on Github, require CircleCI
 - [x] AWS CodePipeLine Deployments
+- [x] Constrain AWS Resource utilisation for Beta pourposes (Concurrency Limits/ DynamoDB Limits/ Alarms)
 - [ ] GraphQL for the API
+- [ ] API Gateway useage Plans
 
 There is a supporting [Angular UI to go with this application avalible](https://github.com/Ro5635/boreholeUI)
+
+Live API Deployment: [https://boreholeapi.robertcurran.uk/](https://boreholeapi.robertcurran.uk/)
+
 
 ## Issues
 
